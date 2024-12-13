@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
@@ -34,6 +34,11 @@ export class UsersService {
         if (!user) {
             throw new NotFoundException('user not found');
         }
+        const existingUser = await this.findByEmail(attrs.email);
+        if (existingUser.length) {
+            throw new BadRequestException('email in use');
+        }
+
         Object.assign(user, attrs);
         return this.repo.save(user); 
     }

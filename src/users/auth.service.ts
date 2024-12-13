@@ -13,8 +13,8 @@ export class AuthService {
     async signup (email: string, password: string) {
         // see if email is in use
 
-        const user = await this.usersService.findByEmail(email);
-        if (user.length) {
+        const existingUser = await this.usersService.findByEmail(email);
+        if (existingUser.length) {
             throw new BadRequestException('email in use');
         }
         
@@ -26,9 +26,9 @@ export class AuthService {
         const hash = (await scrypt(password, salt, 32)) as Buffer;
         const hashedPassword = hash.toString('hex') + '.' + salt;
 
-        // create and save user with email and hashed password
+        const user = await this.usersService.create(email, hashedPassword);
 
-        // return the user
+        return user;
     }
 
     signin (email: string, password: string) {
