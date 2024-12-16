@@ -24,8 +24,8 @@ const cookieSession = require('cookie-session');
           type: 'sqlite',
           database: configService.get<string>('DB_NAME'),
           synchronize: true,
-          // autoLoadEntities: true
-          entities: [User, Report]
+          autoLoadEntities: true
+          // entities: [User, Report]
         }
       }
     }),
