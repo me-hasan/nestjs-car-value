@@ -32,19 +32,6 @@ describe('Authentication System', () => {
       })
   });
 
-//   if('signup as a new user then get the currently logged in user', () => {
-//     const email = 'a@b1.com';
-//     return request(app.getHttpServer())
-//       .post('/auth/signup')
-//       .send({ email, password: 'password' })
-//       .expect(201)
-//       .then((res) => {
-//         const { id, email } = res.body;
-//         expect(id).toBeDefined();
-//         expect(email).toEqual(email);
-//       })
-//   });
-
   it('signs up as a new user then get the currently logged in user', async () => {
     const email = 'a@b1.com';
 
