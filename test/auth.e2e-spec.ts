@@ -2,11 +2,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import { rmSync } from 'fs';
 
 describe('Authentication System', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
+    
+    rmSync('test.sqlite', { force: true });
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
